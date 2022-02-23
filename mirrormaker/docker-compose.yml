@@ -1,0 +1,13 @@
+
+version: '2'
+services:
+  mirrormaker:
+    image: 'bitnami/kafka:3'
+    network_mode: "host"
+    volumes:
+      - ./mm2.properties:/var/run/mirrormaker/mm2.properties
+    command: 
+      - /bin/bash
+      - -c 
+      - |
+        /opt/bitnami/kafka/bin/connect-mirror-maker.sh /var/run/mirrormaker/mm2.properties
