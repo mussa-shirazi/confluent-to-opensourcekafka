@@ -15,3 +15,6 @@ Working local
 to instacluster
 
 ./consumer_app -connecttoinstaclustr=true -saslusername="ickafka" -saslpassword="ESF5XlG&m1HushPv" -brokers="35.155.222.66:9092" -topics="messages" -group="consumer-group"
+
+
+$ ./consumer_macOS -connecttoinstaclustr=false  -brokers="localhost:9094" -topics="app_topic" -group="consumer-app-group"

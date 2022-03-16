@@ -1,0 +1,29 @@
+version: '3.6'
+
+services:
+  akhq:
+    image: tchiotludo/akhq
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            Confluent-Cluster:
+              properties:
+                bootstrap.servers: "kafka:9092"
+              schema-registry:
+                url: "http://schema-registry:8085"
+              connect:
+                - name: "connect"
+                  url: "http://locahost:8083"
+            InstaClustr-Cluster:
+              properties:
+                bootstrap.servers: "x.x.x.x:9092"
+                security.protocol: SASL_PLAINTEXT
+                sasl.mechanism: SCRAM-SHA-256
+                sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="ickafka" password="InstaClustrpassword";
+    ports:
+      - 9080:8080
+networks:
+  default:
+    external:
+      name: migration_workshop

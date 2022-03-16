@@ -7,34 +7,7 @@ volumes:
     driver: local
   kafka-data:
     driver: local
-
 services:
-  akhq:
-    image: tchiotludo/akhq
-    environment:
-      AKHQ_CONFIGURATION: |
-        akhq:
-          connections:
-            Confluent-Cluster:
-              properties:
-                bootstrap.servers: "kafka:9092"
-              schema-registry:
-                url: "http://schema-registry:8085"
-              connect:
-                - name: "connect"
-                  url: "http://locahost:8083"
-            InstaClustr-Cluster:
-              properties:
-                bootstrap.servers: "35.155.222.66:9092"
-                security.protocol: SASL_PLAINTEXT
-                sasl.mechanism: SCRAM-SHA-256
-                sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="ickafka" password="ESF5XlG&m1HushPv";
-    ports:
-      - 8080:8080
-    links:
-      - kafka
-      - schema-registry
-
   zookeeper:
     image: confluentinc/cp-zookeeper
     volumes:
@@ -68,15 +41,7 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
     links:
       - zookeeper
-
-  schema-registry:
-    image: confluentinc/cp-schema-registry
-    depends_on:
-      - kafka
-    ports:
-      - "8081:8081"
-    environment:
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka:9092'
-      SCHEMA_REGISTRY_HOST_NAME: 'schema-registry'
-      SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8085'
-      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: 'INFO'
+networks:
+  default:
+    external:
+      name: migration_workshop
