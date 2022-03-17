@@ -1,6 +1,6 @@
 # Confluent-To-Opensourcekafka
 
-This repo is for Instruction to migrate from confluent Kafka to Apache 
+This repo is for Instruction to migrate from confluent Kafka to Apache Kafka
 
 ## Clone Migration Repo 
 
