@@ -25,7 +25,7 @@ docker network create migration_workshop || true
 
 ```
 ```
-$ docker-compose -f confluent/docker-compose.yml up -d
+docker-compose -f confluent/docker-compose.yml up -d
 
 ```
 
@@ -34,7 +34,7 @@ Check both Zookeerper and Kafka Containers are up . If not run the above command
 
 ```
 
-$ docker ps
+docker ps
 
 CONTAINER ID   IMAGE                       COMMAND                  CREATED          STATUS          PORTS                                                 NAMES
 e438dff09a3a   confluentinc/cp-kafka       "/etc/confluent/dock…"   36 seconds ago   Up 36 seconds   9092/tcp, 0.0.0.0:9094->9094/tcp, :::9094->9094/tcp   confluent_kafka_1
@@ -67,7 +67,7 @@ Open a New Terminal window
 1. You can skip this step if you already have some consumer app to test the consumer 
 
 ```
-$ ./consumer/consumer_app/consumer_macOS -connecttoinstaclustr=false  -brokers="localhost:9094" -topics="app_topic" -group="consumer-app-group"
+./consumer/consumer_app/consumer_macOS -connecttoinstaclustr=false  -brokers="localhost:9094" -topics="app_topic" -group="consumer-app-group"
 
 ```
 
@@ -98,7 +98,7 @@ InstaClustr-Cluster:
 ### Bring up the AKHQ container 
 
 ```
-$ docker-compose -f akhq/docker-compose.yml up -d
+docker-compose -f akhq/docker-compose.yml up -d
 
 ```
 
@@ -133,7 +133,7 @@ target.sasl.jaas.config = org.apache.kafka.common.security.scram.ScramLoginModul
 ### Bring the mirrormker2 up 
 
 ```
-$ docker-compose -f mirrormaker/docker-compose.yml up -d
+docker-compose -f mirrormaker/docker-compose.yml up -d
 
 ```
 
@@ -148,7 +148,7 @@ $ docker-compose -f mirrormaker/docker-compose.yml up -d
 use the username and password of Instaclustr and bootstrap address of the Instaclustr
 
 ```
-$ ./consumer/consumer_app/consumer_macOS -connecttoinstaclustr=true -saslusername="ickafka" -saslpassword="9f239ea6831d8cb701212f8fe830fbbc6a3799e538e431ab4ac94bae88d040e0" -brokers="54.191.182.150:9092" -topics="app_topic" -group="consumer-app-group"
+./consumer/consumer_app/consumer_macOS -connecttoinstaclustr=true -saslusername="ickafka" -saslpassword="9f239ea6831d8cb701212f8fe830fbbc6a3799e538e431ab4ac94bae88d040e0" -brokers="54.191.182.150:9092" -topics="app_topic" -group="consumer-app-group"
 
 ```
 
@@ -157,7 +157,7 @@ $ ./consumer/consumer_app/consumer_macOS -connecttoinstaclustr=true -saslusernam
 Produce messages to Confluent Cluster and Expect to see the new messages consume by the consumer connecting to Instaclustr 
 
 ```
-$ ./producer_macOS  -connecttoinstaclustr=false -brokers="localhost:9094" -topics="app_topic”
+./producer_macOS  -connecttoinstaclustr=false -brokers="localhost:9094" -topics="app_topic”
 
 ```
 
@@ -172,7 +172,7 @@ This test proves that we have successfully migrated our consumers. You could per
 
 ```
 
-$ ./producer/producer_app/producer_macOS -connecttoinstaclustr=true -saslusername="ickafka" -saslpassword="9f239ea6831d8cb701212f8fe830fbbc6a3799e538e431ab4ac94bae88d040e0" -brokers="54.191.182.150:9092" -topics="app_topic" 
+./producer/producer_app/producer_macOS -connecttoinstaclustr=true -saslusername="ickafka" -saslpassword="9f239ea6831d8cb701212f8fe830fbbc6a3799e538e431ab4ac94bae88d040e0" -brokers="54.191.182.150:9092" -topics="app_topic" 
 
 ```
 
